@@ -34,11 +34,31 @@ namespace F {
 	}
 	
 	function zip (array a, array b) {
-	
+		object f = recipient();
+		if (f) {
+			array result;
+			while (a.size() && b.size()) {
+				result.push(f.invoke(a.shift(),b.shift()));
+			}
+			return result;
+		}
 	}
 	
 	function stride (array a,number stride_amount) {
-	
+		object f = recipient();
+		if (f) {
+			array result;
+			array values;
+			number i;
+			while (a.size() > stride_amount) {
+				values = [];
+				for (i=0;i<stride_amount;i++) {
+					values.push(a.shift());
+				}
+				result.push(f.invoke(values));
+			}
+			return result;
+		}
 	}
 	
 	function filter (array a) {
@@ -48,7 +68,7 @@ namespace F {
 			a.each() using (i) {
 				if (f.invoke(i)) result.push(i);
 			};
+			return result;
 		}
-		return result;
 	}
 }
