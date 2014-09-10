@@ -1,0 +1,8 @@
+uses '../functional','console';
+
+Console.println(F.fold([1,2,3,4,5]) using (r,i) {
+	if (r) {
+		return r + i;
+	}
+	return i;
+});

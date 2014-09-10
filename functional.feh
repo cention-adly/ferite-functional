@@ -1,0 +1,54 @@
+namespace F {
+	function map (array a) {
+		object f = recipient();
+		if (f) {
+			array result;
+			a.each() using (i) {
+				result.push(f.invoke(i));
+			};
+			return result;
+		}
+	}
+	
+	function fold (array a) {
+		object f = recipient();
+		if (f) {
+			void result;
+			a.each() using (i) {
+				result = f.invoke(result,i);
+			};
+			return result;
+		}
+	}
+	
+	function fold_r (array a) {
+		object f = recipient();
+		if (f) {
+			void result;
+			number i;
+			for (i = a.size()-1; i >= 0; i--) {
+				result = f.invoke(result,a[i]);
+			}
+			return result;
+		}
+	}
+	
+	function zip (array a, array b) {
+	
+	}
+	
+	function stride (array a,number stride_amount) {
+	
+	}
+	
+	function filter (array a) {
+		object f = recipient();
+		if (f) {
+			array result;
+			a.each() using (i) {
+				if (f.invoke(i)) result.push(i);
+			};
+		}
+		return result;
+	}
+}
