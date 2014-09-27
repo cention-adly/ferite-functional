@@ -54,6 +54,17 @@ testsuite('Functional methods') using {
 			'789'
 		]);
 	};
+	
+	testcase('.stride an array not a multiple of stride length') using {	
+		array a = (new List([1,2,3,4,5,6,7,8,9])).stride(4) using (i) {
+			return i.join('');
+		}.ARRAY;
+		
+		assert(a).equals([
+			'1234',
+			'5678'   // note - 9 is ignored
+		]);
+	};
 
 	testcase('.zip') using {	
 		array a = (new List([1,2,3,4,5])).zip(['a','b','c','d','e']) using (i,j) {
@@ -66,6 +77,18 @@ testsuite('Functional methods') using {
 			'<tr><td> 3 </td><td> c </td></tr>',
 			'<tr><td> 4 </td><td> d </td></tr>',
 			'<tr><td> 5 </td><td> e </td></tr>'
+		]);
+	};
+	
+	testcase('.zip two arrays not of the same size') using {	
+		array a = (new List([1,2,3,4,5])).zip(['a','b','c']) using (i,j) {
+			return '<tr><td> ' + i + ' </td><td> ' + j + ' </td></tr>';
+		}.ARRAY;
+		
+		assert(a).equals([
+			'<tr><td> 1 </td><td> a </td></tr>',
+			'<tr><td> 2 </td><td> b </td></tr>',
+			'<tr><td> 3 </td><td> c </td></tr>'  // note - 4 and 5 are ignored
 		]);
 	};
 
