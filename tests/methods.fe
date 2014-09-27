@@ -1,0 +1,73 @@
+uses 'testlib','assert';
+uses '../functional';
+
+testsuite('Functional methods') using {
+
+	testcase('.filter') using {
+		object l = (new List([1,2,3,4,5])).filter() using (i) {
+			return i%2 != 0;
+		};
+		
+		assert(l.ARRAY).equals([1,3,5]);
+	};
+	
+	testcase('.fold') using {
+		number n = (new List([1,2,3,4,5])).fold() using (r,i) {
+			if (r) return r + i;
+			else   return i;
+		};
+		
+		assert(n).equals(15);
+	};
+	
+	testcase('.fold_r') using {
+		string s = (new List([1,2,3,4,5])).fold_r() using (r,i) {
+			if (r) return r + i;
+			else   return '' + i;
+		};
+		
+		assert(s).equals('54321');
+	};
+	
+	testcase('.map') using {
+		object l = List.create([1,2,3,4,5]).map() using (i) {
+			return '<li>' + i + '</li>';
+		};
+		
+		assert(l.ARRAY).equals([
+			'<li>1</li>',
+			'<li>2</li>',
+			'<li>3</li>',
+			'<li>4</li>',
+			'<li>5</li>'
+		]);
+	};
+
+	testcase('.stride') using {	
+		array a = (new List([1,2,3,4,5,6,7,8,9,10,11,12])).stride(3) using (i) {
+			return i.join(',');
+		}.ARRAY;
+		
+		assert(a).equals([
+			'1,2,3',
+			'4,5,6',
+			'7,8,9',
+			'10,11,12'
+		]);
+	};
+
+	testcase('.zip') using {	
+		array a = (new List([1,2,3,4,5])).zip(['a','b','c','d','e']) using (i,j) {
+			return '<tr><td> ' + i + ' </td><td> ' + j + ' </td></tr>';
+		}.ARRAY;
+		
+		assert(a).equals([
+			'<tr><td> 1 </td><td> a </td></tr>',
+			'<tr><td> 2 </td><td> b </td></tr>',
+			'<tr><td> 3 </td><td> c </td></tr>',
+			'<tr><td> 4 </td><td> d </td></tr>',
+			'<tr><td> 5 </td><td> e </td></tr>'
+		]);
+	};
+
+};

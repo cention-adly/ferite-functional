@@ -1,59 +1,95 @@
-namespace F {
-	function map (array a) {
-		object f = recipient();
-		if (f) {
-			array result;
-			a.each() using (i) {
-				result.push(f.invoke(i));
-			};
-			return result;
-		}
+class List {
+	array ARRAY;
+	
+	function constructor (array a) {
+		.ARRAY = a;
 	}
 	
-	function fold (array a) {
-		object f = recipient();
-		if (f) {
-			void result;
-			a.each() using (i) {
-				result = f.invoke(result,i);
-			};
-			return result;
-		}
+	function constructor () {
+		.ARRAY = [];
 	}
 	
-	function fold_r (array a) {
+	static function create (array a) {
+		return new List(a);
+	}
+	
+	function push (void i) {
+		return .ARRAY.push(i);
+	}
+	
+	function unshift (void i) {
+		return .ARRAY.unshift(i);
+	}
+	
+	function shift () {
+		return .ARRAY.shift();
+	}
+	
+	function pop () {
+		return .ARRAY.pop();
+	}
+	
+	function size () {
+		return .ARRAY.size();
+	}
+	
+	function join (string j) {
+		return .ARRAY.join(j);
+	}
+	
+	function map () {
 		object f = recipient();
 		if (f) {
-			void result;
-			number i;
-			for (i = a.size()-1; i >= 0; i--) {
-				result = f.invoke(result,a[i]);
+			object result = new List();
+			for (number i=0;i<.ARRAY.size();i++) {
+				result.push(f.invoke(.ARRAY[i]));
 			}
 			return result;
 		}
 	}
 	
-	function zip (array a, array b) {
+	function fold () {
 		object f = recipient();
 		if (f) {
-			array result;
-			while (a.size() && b.size()) {
-				result.push(f.invoke(a.shift(),b.shift()));
+			void result;
+			for (number i=0;i<.ARRAY.size();i++) {
+				result = f.invoke(result,.ARRAY[i]);
 			}
 			return result;
 		}
 	}
 	
-	function stride (array a,number stride_amount) {
+	function fold_r () {
 		object f = recipient();
 		if (f) {
-			array result;
+			void result;
+			for (number i = .ARRAY.size()-1; i >= 0; i--) {
+				result = f.invoke(result,.ARRAY[i]);
+			}
+			return result;
+		}
+	}
+	
+	function zip (void b) {
+		object f = recipient();
+		if (f) {
+			object result = new List();
+			while (.size() && b.size()) {
+				result.push(f.invoke(.shift(),b.shift()));
+			}
+			return result;
+		}
+	}
+	
+	function stride (number stride_amount) {
+		object f = recipient();
+		if (f) {
+			object result = new List();
 			array values;
-			number i;
-			while (a.size() > stride_amount) {
+			while (.size() > stride_amount) {
 				values = [];
-				for (i=0;i<stride_amount;i++) {
-					values.push(a.shift());
+				for (number i=0;i<stride_amount;i++) {
+					values.push(.shift());
 				}
 				result.push(f.invoke(values));
 			}
@@ -61,14 +97,20 @@ namespace F {
 		}
 	}
 	
-	function filter (array a) {
+	function filter () {
 		object f = recipient();
 		if (f) {
-			array result;
-			a.each() using (i) {
-				if (f.invoke(i)) result.push(i);
-			};
+			object result = new List();
+			for (number i=0;i<.ARRAY.size();i++) {
+				if (f.invoke(.ARRAY[i])) result.push(.ARRAY[i]);
+			}
 			return result;
 		}
 	}
+	
+	function toString return '' + .ARRAY;
+	
+	function toJSON return .ARRAY.toJSON();
+	
+	function toArray return .ARRAY;
 }

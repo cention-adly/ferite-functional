@@ -1,0 +1,9 @@
+uses 'testlib','assert';
+uses '../functional.feh';
+
+testsuite('Basic tests') using {
+	testcase('Make sure we can convert arrays into Lists') using {
+		array a = [1,2,3,4,5];
+		object l = new List(a);
+	};
+};

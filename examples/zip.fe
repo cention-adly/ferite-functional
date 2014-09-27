@@ -1,0 +1,7 @@
+uses '../functional','console';
+
+Console.println(
+	(new List([1,2,3,4,5])).zip(['a','b','c','d','e']) using (i,j) {
+		return '<tr><td> ' + i + ' </td><td> ' + j + ' </td></tr>';
+	}.join("\n")
+);

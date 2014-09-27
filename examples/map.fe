@@ -1,7 +1,7 @@
 uses '../functional','console';
 
 Console.println(
-	F.map([1,2,3,4,5]) using (i) {
+	List.create([1,2,3,4,5]).map() using (i) {
 		return '<li>' + i + '</li>';
 	}.join("\n")
 );

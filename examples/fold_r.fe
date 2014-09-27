@@ -1,6 +1,6 @@
 uses '../functional','console';
 
-Console.println(F.fold_r([1,2,3,4,5]) using (r,i) {
+Console.println((new List([1,2,3,4,5])).fold_r() using (r,i) {
 	if (r) {
 		return r + i;
 	}

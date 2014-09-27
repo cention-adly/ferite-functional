@@ -2,7 +2,7 @@ uses '../functional','console';
 
 // Returns only odd numbers
 Console.println(
-	F.filter([1,2,3,4,5]) using (i) {
+	(new List([1,2,3,4,5])).filter() using (i) {
 		return i%2 != 0;
 	}
 );
