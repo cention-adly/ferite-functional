@@ -44,15 +44,14 @@ testsuite('Functional methods') using {
 	};
 
 	testcase('.stride') using {	
-		array a = (new List([1,2,3,4,5,6,7,8,9,10,11,12])).stride(3) using (i) {
-			return i.join(',');
+		array a = (new List([1,2,3,4,5,6,7,8,9])).stride(3) using (i) {
+			return i.join('');
 		}.ARRAY;
 		
 		assert(a).equals([
-			'1,2,3',
-			'4,5,6',
-			'7,8,9',
-			'10,11,12'
+			'123',
+			'456',
+			'789'
 		]);
 	};
 
